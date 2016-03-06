@@ -1,0 +1,465 @@
+{
+  "Spotlight": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Achievement in Directing",
+      "Best Performance by an Actor in a Supporting Role",
+      "Best Achievement in Editing",
+      "Best Performance by an Actress in a Supporting Role",
+      "Best Writing, Screenplay Written Directly for the Screen"
+    ],
+    "order": 0,
+    "link": "/title/tt1895587/?ref=ac_nomw"
+  },
+  "The Big Short": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Achievement in Directing",
+      "Best Performance by an Actor in a Supporting Role",
+      "Best Achievement in Editing",
+      "Best Writing, Screenplay Based on Material Previously Produced or Published"
+    ],
+    "order": 1,
+    "link": "/title/tt1596363/?ref=ac_nomw"
+  },
+  "Brooklyn": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Performance by an Actress in a Leading Role",
+      "Best Writing, Screenplay Based on Material Previously Produced or Published"
+    ],
+    "order": 2,
+    "link": "/title/tt2381111/?ref=ac_nomw"
+  },
+  "Bridge of Spies": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Achievement in Music Written for Motion Pictures, Original Score",
+      "Best Performance by an Actor in a Supporting Role",
+      "Best Achievement in Sound Mixing",
+      "Best Achievement in Production Design",
+      "Best Writing, Screenplay Written Directly for the Screen"
+    ],
+    "order": 3,
+    "link": "/title/tt3682448/?ref=ac_nomw"
+  },
+  "Mad Max: Fury Road": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Achievement in Directing",
+      "Best Achievement in Visual Effects",
+      "Best Achievement in Sound Mixing",
+      "Best Achievement in Sound Editing",
+      "Best Achievement in Editing",
+      "Best Achievement in Cinematography",
+      "Best Achievement in Makeup and Hairstyling",
+      "Best Achievement in Production Design",
+      "Best Achievement in Costume Design"
+    ],
+    "order": 4,
+    "link": "/title/tt1392190/?ref=ac_nomw"
+  },
+  "The Martian": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Performance by an Actor in a Leading Role",
+      "Best Achievement in Visual Effects",
+      "Best Achievement in Sound Mixing",
+      "Best Achievement in Sound Editing",
+      "Best Achievement in Production Design",
+      "Best Writing, Screenplay Based on Material Previously Produced or Published"
+    ],
+    "order": 5,
+    "link": "/title/tt3659388/?ref=ac_nomw"
+  },
+  "The Revenant": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Performance by an Actor in a Leading Role",
+      "Best Achievement in Directing",
+      "Best Performance by an Actor in a Supporting Role",
+      "Best Achievement in Visual Effects",
+      "Best Achievement in Sound Mixing",
+      "Best Achievement in Sound Editing",
+      "Best Achievement in Editing",
+      "Best Achievement in Cinematography",
+      "Best Achievement in Makeup and Hairstyling",
+      "Best Achievement in Production Design",
+      "Best Achievement in Costume Design"
+    ],
+    "order": 6,
+    "link": "/title/tt1663202/?ref=ac_nomw"
+  },
+  "Room": {
+    "nominees": [
+      "Best Motion Picture of the Year",
+      "Best Performance by an Actress in a Leading Role",
+      "Best Achievement in Directing",
+      "Best Writing, Screenplay Based on Material Previously Produced or Published"
+    ],
+    "order": 7,
+    "link": "/title/tt3170832/?ref=ac_nomw"
+  },
+  "Trumbo": {
+    "nominees": [
+      "Best Performance by an Actor in a Leading Role"
+    ],
+    "order": 8,
+    "link": "/name/nm0186505/?ref=ac_nomw"
+  },
+  "Steve Jobs": {
+    "nominees": [
+      "Best Performance by an Actor in a Leading Role",
+      "Best Performance by an Actress in a Supporting Role"
+    ],
+    "order": 9,
+    "link": "/name/nm0000701/?ref=ac_nomw"
+  },
+  "The Danish Girl": {
+    "nominees": [
+      "Best Performance by an Actor in a Leading Role",
+      "Best Achievement in Production Design",
+      "Best Achievement in Costume Design",
+      "Best Performance by an Actress in a Supporting Role"
+    ],
+    "order": 10,
+    "link": "/name/nm2539953/?ref=ac_nomw"
+  },
+  "Carol": {
+    "nominees": [
+      "Best Performance by an Actress in a Leading Role",
+      "Best Achievement in Music Written for Motion Pictures, Original Score",
+      "Best Achievement in Cinematography",
+      "Best Achievement in Costume Design",
+      "Best Performance by an Actress in a Supporting Role",
+      "Best Writing, Screenplay Based on Material Previously Produced or Published"
+    ],
+    "order": 11,
+    "link": "/title/tt2402927/?ref=ac_nomw"
+  },
+  "Joy": {
+    "nominees": [
+      "Best Performance by an Actress in a Leading Role"
+    ],
+    "order": 12,
+    "link": "/name/nm2225369/?ref=ac_nomw"
+  },
+  "45 Years": {
+    "nominees": [
+      "Best Performance by an Actress in a Leading Role"
+    ],
+    "order": 13,
+    "link": "/name/nm0001648/?ref=ac_nomw"
+  },
+  "Spectre": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Song"
+    ],
+    "order": 14,
+    "link": "/title/tt2379713/?ref=ac_nomw"
+  },
+  "Fifty Shades of Grey": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Song"
+    ],
+    "order": 15,
+    "link": "/title/tt2322441/?ref=ac_nomw"
+  },
+  "The Hunting Ground": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Song"
+    ],
+    "order": 16,
+    "link": "/title/tt4185572/?ref=ac_nomw"
+  },
+  "Racing Extinction": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Song"
+    ],
+    "order": 17,
+    "link": "/title/tt1618448/?ref=ac_nomw"
+  },
+  "Youth": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Song"
+    ],
+    "order": 18,
+    "link": "/title/tt3312830/?ref=ac_nomw"
+  },
+  "The Hateful Eight": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Score",
+      "Best Achievement in Cinematography",
+      "Best Performance by an Actress in a Supporting Role"
+    ],
+    "order": 19,
+    "link": "/name/nm0000492/?ref=ac_nomw"
+  },
+  "Sicario": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Score",
+      "Best Achievement in Sound Editing",
+      "Best Achievement in Cinematography"
+    ],
+    "order": 20,
+    "link": "/title/tt3397884/?ref=ac_nomw"
+  },
+  "Star Wars: Episode VII - The Force Awakens": {
+    "nominees": [
+      "Best Achievement in Music Written for Motion Pictures, Original Score",
+      "Best Achievement in Visual Effects",
+      "Best Achievement in Sound Mixing",
+      "Best Achievement in Sound Editing",
+      "Best Achievement in Editing"
+    ],
+    "order": 21,
+    "link": "/title/tt2488496/?ref=ac_nomw"
+  },
+  "Saul fia": {
+    "nominees": [
+      "Best Foreign Language Film of the Year"
+    ],
+    "order": 22,
+    "link": "/title/tt3808342/?ref=ac_nomw"
+  },
+  "El abrazo de la serpiente": {
+    "nominees": [
+      "Best Foreign Language Film of the Year"
+    ],
+    "order": 23,
+    "link": "/title/tt4285496/?ref=ac_nomw"
+  },
+  "Krigen": {
+    "nominees": [
+      "Best Foreign Language Film of the Year"
+    ],
+    "order": 24,
+    "link": "/title/tt3830162/?ref=ac_nomw"
+  },
+  "Mustang": {
+    "nominees": [
+      "Best Foreign Language Film of the Year"
+    ],
+    "order": 25,
+    "link": "/title/tt3966404/?ref=ac_nomw"
+  },
+  "Theeb": {
+    "nominees": [
+      "Best Foreign Language Film of the Year"
+    ],
+    "order": 26,
+    "link": "/title/tt3170902/?ref=ac_nomw"
+  },
+  "Stutterer": {
+    "nominees": [
+      "Best Short Film, Live Action"
+    ],
+    "order": 27,
+    "link": "/title/tt4817576/?ref=ac_nomw"
+  },
+  "Ave Maria": {
+    "nominees": [
+      "Best Short Film, Live Action"
+    ],
+    "order": 28,
+    "link": "/title/tt4419794/?ref=ac_nomw"
+  },
+  "Day One": {
+    "nominees": [
+      "Best Short Film, Live Action"
+    ],
+    "order": 29,
+    "link": "/title/tt4122886/?ref=ac_nomw"
+  },
+  "Alles wird gut": {
+    "nominees": [
+      "Best Short Film, Live Action"
+    ],
+    "order": 30,
+    "link": "/title/tt4324518/?ref=ac_nomw"
+  },
+  "Shok": {
+    "nominees": [
+      "Best Short Film, Live Action"
+    ],
+    "order": 31,
+    "link": "/title/tt4273570/?ref=ac_nomw"
+  },
+  "Amy": {
+    "nominees": [
+      "Best Documentary, Feature"
+    ],
+    "order": 32,
+    "link": "/title/tt2870648/?ref=ac_nomw"
+  },
+  "Cartel Land": {
+    "nominees": [
+      "Best Documentary, Feature"
+    ],
+    "order": 33,
+    "link": "/title/tt4126304/?ref=ac_nomw"
+  },
+  "The Look of Silence": {
+    "nominees": [
+      "Best Documentary, Feature"
+    ],
+    "order": 34,
+    "link": "/title/tt3521134/?ref=ac_nomw"
+  },
+  "What Happened, Miss Simone?": {
+    "nominees": [
+      "Best Documentary, Feature"
+    ],
+    "order": 35,
+    "link": "/title/tt4284010/?ref=ac_nomw"
+  },
+  "Winter on Fire: Ukraine's Fight for Freedom": {
+    "nominees": [
+      "Best Documentary, Feature"
+    ],
+    "order": 36,
+    "link": "/title/tt4908644/?ref=ac_nomw"
+  },
+  "A Girl in the River: The Price of Forgiveness": {
+    "nominees": [
+      "Best Documentary, Short Subject"
+    ],
+    "order": 37,
+    "link": "/title/tt5144072/?ref=ac_nomw"
+  },
+  "Body Team 12": {
+    "nominees": [
+      "Best Documentary, Short Subject"
+    ],
+    "order": 38,
+    "link": "/title/tt4430002/?ref=ac_nomw"
+  },
+  "War Within the Walls": {
+    "nominees": [
+      "Best Documentary, Short Subject"
+    ],
+    "order": 39,
+    "link": "/title/tt4084844/?ref=ac_nomw"
+  },
+  "Claude Lanzmann: Spectres of the Shoah": {
+    "nominees": [
+      "Best Documentary, Short Subject"
+    ],
+    "order": 40,
+    "link": "/title/tt4815426/?ref=ac_nomw"
+  },
+  "Last Day of Freedom": {
+    "nominees": [
+      "Best Documentary, Short Subject"
+    ],
+    "order": 41,
+    "link": "/title/tt4172096/?ref=ac_nomw"
+  },
+  "Creed": {
+    "nominees": [
+      "Best Performance by an Actor in a Supporting Role"
+    ],
+    "order": 42,
+    "link": "/name/nm0000230/?ref=ac_nomw"
+  },
+  "Inside Out": {
+    "nominees": [
+      "Best Animated Feature Film of the Year",
+      "Best Writing, Screenplay Written Directly for the Screen"
+    ],
+    "order": 43,
+    "link": "/title/tt2096673/?ref=ac_nomw"
+  },
+  "Anomalisa": {
+    "nominees": [
+      "Best Animated Feature Film of the Year"
+    ],
+    "order": 44,
+    "link": "/title/tt2401878/?ref=ac_nomw"
+  },
+  "O Menino e o Mundo": {
+    "nominees": [
+      "Best Animated Feature Film of the Year"
+    ],
+    "order": 45,
+    "link": "/title/tt3183630/?ref=ac_nomw"
+  },
+  "Shaun the Sheep Movie": {
+    "nominees": [
+      "Best Animated Feature Film of the Year"
+    ],
+    "order": 46,
+    "link": "/title/tt2872750/?ref=ac_nomw"
+  },
+  "Omoide no Mânî": {
+    "nominees": [
+      "Best Animated Feature Film of the Year"
+    ],
+    "order": 47,
+    "link": "/title/tt3398268/?ref=ac_nomw"
+  },
+  "Historia de un oso": {
+    "nominees": [
+      "Best Short Film, Animated"
+    ],
+    "order": 48,
+    "link": "/title/tt3829254/?ref=ac_nomw"
+  },
+  "Mi ne mozhem zhit bez kosmosa": {
+    "nominees": [
+      "Best Short Film, Animated"
+    ],
+    "order": 49,
+    "link": "/title/tt3965660/?ref=ac_nomw"
+  },
+  "Prologue": {
+    "nominees": [
+      "Best Short Film, Animated"
+    ],
+    "order": 50,
+    "link": "/title/tt4955294/?ref=ac_nomw"
+  },
+  "Sanjay's Super Team": {
+    "nominees": [
+      "Best Short Film, Animated"
+    ],
+    "order": 51,
+    "link": "/title/tt4661600/?ref=ac_nomw"
+  },
+  "World of Tomorrow": {
+    "nominees": [
+      "Best Short Film, Animated"
+    ],
+    "order": 52,
+    "link": "/title/tt4171032/?ref=ac_nomw"
+  },
+  "Ex Machina": {
+    "nominees": [
+      "Best Achievement in Visual Effects",
+      "Best Writing, Screenplay Written Directly for the Screen"
+    ],
+    "order": 53,
+    "link": "/title/tt0470752/?ref=ac_nomw"
+  },
+  "Hundraåringen som klev ut genom fönstret och försvann": {
+    "nominees": [
+      "Best Achievement in Makeup and Hairstyling"
+    ],
+    "order": 54,
+    "link": "/title/tt2113681/?ref=ac_nomw"
+  },
+  "Cinderella": {
+    "nominees": [
+      "Best Achievement in Costume Design"
+    ],
+    "order": 55,
+    "link": "/title/tt1661199/?ref=ac_nomw"
+  },
+  "Straight Outta Compton": {
+    "nominees": [
+      "Best Writing, Screenplay Written Directly for the Screen"
+    ],
+    "order": 56,
+    "link": "/title/tt1398426/?ref=ac_nomw"
+  }
+}
