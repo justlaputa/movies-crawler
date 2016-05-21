@@ -15,3 +15,11 @@ class EigaSpiderItem(scrapy.Item):
     japan_title = scrapy.Field()
     eiga_link = scrapy.Field()
     release_date = scrapy.Field()
+
+class MovieItem(scrapy.Item):
+    original_title = scrapy.Field()
+    release_date_jp = scrapy.Field()
+    title_jp = scrapy.Field()
+    staff = scrapy.Field()
+    cast = scrapy.Field()
+    movie_data = scrapy.Field()
