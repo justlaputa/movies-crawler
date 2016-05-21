@@ -21,7 +21,7 @@ class OnReleaseSpider(scrapy.Spider):
         next_page_number = next_page.xpath('text()').extract()[0]
         next_page_number = int(next_page_number)
 
-        if next_page_number <= 10:
+        if next_page_number <= 1:
             yield scrapy.Request(next_page_url, callback=self.parse)
 
     def parse_movie(self, response):
@@ -29,11 +29,12 @@ class OnReleaseSpider(scrapy.Spider):
         movieInfoBox = response.xpath('//div[@class="moveInfoBox"]')
 
         movie['eiga_url'] = response.url
-        movie['title_jp'] = movieInfoBox.xpath('h1[@itemprop="name"]/text()').extract()
-        movie['release_date_jp'] = movieInfoBox.xpath('span[@class="opn_date"]/strong/text()').extract()
-        movie['staff'] = self.extract_staff(movieInfoBox.xpath('div[@class="staffcast"]/div[@class="staffBox"]'))
-        movie['cast'] = self.extract_cast(movieInfoBox.xpath('div[@class="staffcast"]/div[@class="castBox"]'))
-        movie['movie_data'] = self.extract_movie_data(movieInfoBox.xpath('div[@class="dataBox"]'))
+        movie['eiga_movie_id'] = response.url.split('/')[-2]
+        movie['title_jp'] = movieInfoBox.xpath('h1[@itemprop="name"]/text()').extract_first()
+        movie['release_date_jp'] = movieInfoBox.xpath('span[@class="opn_date"]/strong/text()').extract_first()
+        movie['staff'] = self.extract_staff(movieInfoBox.xpath('div[@class="staffcast"]/div[@class="staffBox"]')[0])
+        movie['cast'] = self.extract_cast(movieInfoBox.xpath('div[@class="staffcast"]/div[@class="castBox"]')[0])
+        movie['movie_data'] = self.extract_movie_data(movieInfoBox.xpath('div[@class="dataBox"]')[0])
 
         yield movie
 
