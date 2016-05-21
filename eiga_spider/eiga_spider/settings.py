@@ -14,6 +14,9 @@ BOT_NAME = 'eiga_spider'
 SPIDER_MODULES = ['eiga_spider.spiders']
 NEWSPIDER_MODULE = 'eiga_spider.spiders'
 
+# Mongodb settings
+MONGO_URI = "mongodb://localhost:27017/"
+MONGO_DATABASE = "movies"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'eiga_spider (+http://www.yourdomain.com)'
@@ -62,7 +65,7 @@ NEWSPIDER_MODULE = 'eiga_spider.spiders'
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'eiga_spider.pipelines.JsonExportPipeline': 300,
+    'eiga_spider.pipelines.MongoPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

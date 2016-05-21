@@ -28,6 +28,7 @@ class OnReleaseSpider(scrapy.Spider):
         movie = MovieItem()
         movieInfoBox = response.xpath('//div[@class="moveInfoBox"]')
 
+        movie['eiga_url'] = response.url
         movie['title_jp'] = movieInfoBox.xpath('h1[@itemprop="name"]/text()').extract()
         movie['release_date_jp'] = movieInfoBox.xpath('span[@class="opn_date"]/strong/text()').extract()
         movie['staff'] = self.extract_staff(movieInfoBox.xpath('div[@class="staffcast"]/div[@class="staffBox"]'))
