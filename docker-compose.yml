@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  mongodb:
+    container_name: movie-mongodb
+    image: mongo:3.2
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - "27017:27017"
