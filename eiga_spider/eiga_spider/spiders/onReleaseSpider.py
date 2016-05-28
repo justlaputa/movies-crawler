@@ -4,6 +4,7 @@ import json
 import urllib
 from eiga_spider.items import MovieItem
 
+
 class OnReleaseSpider(scrapy.Spider):
     name = "eiga_on_release"
     allowed_domains = ["eiga.com"]
@@ -44,5 +45,18 @@ class OnReleaseSpider(scrapy.Spider):
     def extract_cast(self, staff_selector):
         pass
 
-    def extract_movie_data(self, staff_selector):
-        pass
+    def extract_movie_data(self, data_selector):
+        data = {}
+        for data_item in data_selector.xpath('.//tr'):
+            if len(data_item.xpath('th')) == 0:
+                if data_item.xpath('td[1]/a/@class').extract_first() == 'official':
+                    data['official_site'] = data_item.xpath('td[1]/a/@content').extract_first()
+                else:
+                    continue
+            else:
+                data_name = data_item.xpath('th/text()').extract_first()
+                if data_name is None or data_name.strip() == '':
+                    continue
+                else:
+                    data[data_name] = data_item.xpath('td/text()').extract_first()
+        return data
