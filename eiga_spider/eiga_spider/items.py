@@ -19,6 +19,8 @@ class EigaSpiderItem(scrapy.Item):
 class MovieItem(scrapy.Item):
     eiga_movie_id = scrapy.Field()
     eiga_url = scrapy.Field()
+    poster_url = scrapy.Field()
+    gallery = scrapy.Field()
     original_title = scrapy.Field()
     release_date_jp = scrapy.Field()
     title_jp = scrapy.Field()

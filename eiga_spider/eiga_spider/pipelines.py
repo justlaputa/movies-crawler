@@ -30,7 +30,24 @@ class MongoPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
-        self.db[self.collection_name].insert(dict(item))
+        movie_collection = self.db[self.collection_name]
+
+        movie = movie_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
+
+        if movie is None:
+            movie_collection.insert(dict(item))
+        else:
+            print 'movie exists, add gallery'
+            print(item)
+            movie_collection.update_one({'eiga_movie_id': item['eiga_movie_id']},
+                                        {
+                                            '$set': {
+                                                'gallery': item['gallery']
+                                            },
+                                            '$currentDate': {
+                                                'lastModified': True
+                                            }
+                                        })
         return item
 
 class JsonExportPipeline(object):
