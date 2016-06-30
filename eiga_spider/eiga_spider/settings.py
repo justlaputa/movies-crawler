@@ -65,7 +65,7 @@ CONCURRENT_REQUESTS_PER_DOMAIN=1
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'eiga_spider.pipelines.MongoPipeline': 300,
+#    'eiga_spider.pipelines.UpdateGalleryPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

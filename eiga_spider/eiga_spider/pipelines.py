@@ -50,6 +50,40 @@ class MongoPipeline(object):
                                         })
         return item
 
+class UpdateOnSchedulePipeline(MongoPipeline):
+    def process_item(self, item, spider):
+        eiga_collection = self.db['eiga_movies']
+
+        movie = eiga_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
+
+        if movie is None:
+            eiga_collection.insert_one(dict(item))
+        else:
+            print('scheduled movie %s (%s) already exists, skip' % (item['eiga_movie_id'], item['title_jp']))
+        return item
+
+class UpdateGalleryPipeline(MongoPipeline):
+    def process_item(self, item, spider):
+        movie_collection = self.db[self.collection_name]
+
+        movie = movie_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
+
+        if movie is None:
+            movie_collection.insert_one(dict(item))
+        else:
+            print 'movie exists, add gallery'
+            movie_collection.update_one({'eiga_movie_id': item['eiga_movie_id']},
+                                        {
+                                            '$set': {
+                                                'gallery': item['gallery']
+                                            },
+                                            '$currentDate': {
+                                                'lastModified': True
+                                            }
+                                        })
+        return item
+
+
 class JsonExportPipeline(object):
     def __init__(self):
         self.file = io.open('japan_movies.json', 'w', encoding='utf-8')

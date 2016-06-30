@@ -23,6 +23,7 @@ class MovieItem(scrapy.Item):
     gallery = scrapy.Field()
     original_title = scrapy.Field()
     release_date_jp = scrapy.Field()
+    in_theater = scrapy.Field()
     title_jp = scrapy.Field()
     staff = scrapy.Field()
     cast = scrapy.Field()
