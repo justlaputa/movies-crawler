@@ -57,6 +57,7 @@ class UpdateOnSchedulePipeline(MongoPipeline):
         movie = eiga_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
 
         if movie is None:
+            print('add new movie in db: %s (%s)' % (item['title_jp'], item['eiga_movie_id']))
             eiga_collection.insert_one(dict(item))
         else:
             print('scheduled movie %s (%s) already exists, skip' % (item['eiga_movie_id'], item['title_jp']))
