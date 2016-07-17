@@ -48,7 +48,7 @@ class UpdateMovieSpider(scrapy.Spider):
             movie_item = MovieIdItem()
             movie_item['url'] = response.urljoin(href.extract())
             movie_item['id'] = movie_item['url'].split('/')[-2]
-            movie_item['in_theater'] = False
+            movie_item['in_theater'] = None
 
             items.append(movie_item)
         return items
