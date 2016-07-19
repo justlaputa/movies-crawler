@@ -64,9 +64,10 @@ CONCURRENT_REQUESTS_PER_DOMAIN=1
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'eiga_spider.pipelines.NewMoviesPipeline': 300
-}
+# pipelines are defined as custom settings in each spider, check spider source code
+# ITEM_PIPELINES = {
+#     'eiga_spider.pipelines.NewMoviesPipeline': 300
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

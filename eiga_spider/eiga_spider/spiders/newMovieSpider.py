@@ -11,6 +11,12 @@ class UpdateMovieSpider(scrapy.Spider):
     allowed_domains = ["eiga.com"]
     testing_page = 1000
 
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'eiga_spider.pipelines.NewMoviesPipeline': 300
+        }
+    }
+
     def start_requests(self):
         opened_request = scrapy.Request('http://eiga.com/now/', self.parse_now_playing)
         scheduled_request = scrapy.Request('http://eiga.com/coming/', self.parse_scheduled_page)

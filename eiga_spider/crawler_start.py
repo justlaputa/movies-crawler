@@ -7,6 +7,7 @@ logging.basicConfig(level = logging.DEBUG)
 
 class MovieCrawler():
     def __init__(self, settings, db):
+        self.settings = settings
         self.db = db
         self.movie_col = self.db['eiga_movies']
         self.update_col = self.db['updates']
@@ -37,7 +38,10 @@ class MovieCrawler():
         self.update_web_movies_col(updates)
 
     def run_update_movie_spider(self):
-        pass
+        process = CrawlerProcess(self.settings)
+        process.crawl('check_new_movies')
+        process.start()
+        process.stop()
 
     def get_latest_updates(self):
         result = self.update_col.find_one({'updated': False}, sort=[('createdAt', -1)])
@@ -78,7 +82,8 @@ class MovieCrawler():
         collection.update_many({'eiga_movie_id': {'$in': closed_ids}}, {'$set': {'in_theater': False}})
 
     def run_get_movie_spider(self, in_theater_ids, out_theater_ids):
-        pass
+        process = CrawlerProcess(self.settings)
+        process.crawl('')
 
     def run_get_gallery_spider(self, movie_ids):
         pass
