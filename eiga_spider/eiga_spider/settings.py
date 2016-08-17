@@ -17,6 +17,8 @@ NEWSPIDER_MODULE = 'eiga_spider.spiders'
 # Mongodb settings
 MONGO_URI = "mongodb://localhost:27017/"
 MONGO_DATABASE = "movies"
+WEB_MONGO_URI = "mongodb://localhost:3001"
+WEB_MONGO_DATABASE = "meteor"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'eiga_spider (+http://www.yourdomain.com)'

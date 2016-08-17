@@ -10,15 +10,23 @@ class updateGallerySpider(scrapy.Spider):
     name = "update_eiga_gallery"
     allowed_domains = ["eiga.com"]
 
-    def start_requests(self):
-        mongo_uri = self.settings.get('MONGO_URI'),
-        mongo_db = self.settings.get('MONGO_DATABASE', 'movies')
-        client = pymongo.MongoClient(mongo_uri)
-        db = client[mongo_db]
-        movies = db['eiga_movies'].find({'gallery': {'$exists': False}}, {'eiga_movie_id': 1})
-        client.close()
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'eiga_spider.pipelines.NewMoviesPipeline': 300
+        }
+    }
 
-        return [scrapy.Request("http://eiga.com/movie/%s/gallery/" % m['eiga_movie_id'], self.parse_gallery) for m in movies]
+    def __init__(self, movie_ids):
+        if isinstance(movie_ids, str):
+            movie_ids = movie_ids.split(',')
+        elif not isinstance(movie_ids, list):
+            raise Exception('invalid parameters to initialize spider: use list or comma separated string')
+
+        self.movie_ids = movie_ids
+
+    def start_requests(self):
+        return [scrapy.Request("http://eiga.com/movie/%s/gallery/" % id, self.parse_gallery)
+                for id in self.movie_ids]
 
     def parse_gallery(self, response):
         movie = MovieItem()

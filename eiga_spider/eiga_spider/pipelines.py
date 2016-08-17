@@ -7,6 +7,7 @@
 import io
 import json
 import pymongo
+from scrapy.exceptions import DropItem
 from pprint import pprint
 
 class MongoPipeline(object):
@@ -62,27 +63,6 @@ class UpdateOnSchedulePipeline(MongoPipeline):
             eiga_collection.insert_one(dict(item))
         else:
             print('scheduled movie %s (%s) already exists, skip' % (item['eiga_movie_id'], item['title_jp']))
-        return item
-
-class UpdateGalleryPipeline(MongoPipeline):
-    def process_item(self, item, spider):
-        movie_collection = self.db[self.collection_name]
-
-        movie = movie_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
-
-        if movie is None:
-            movie_collection.insert_one(dict(item))
-        else:
-            print 'movie exists, add gallery'
-            movie_collection.update_one({'eiga_movie_id': item['eiga_movie_id']},
-                                        {
-                                            '$set': {
-                                                'gallery': item['gallery']
-                                            },
-                                            '$currentDate': {
-                                                'lastModified': True
-                                            }
-                                        })
         return item
 
 class MongoDBPipeline(object):
@@ -184,3 +164,28 @@ class NewMoviesPipeline(MongoDBPipeline):
 
     def _update_movie(self, oid, update):
         self.movie_col.update_one({'_id': oid}, {'$set': update}, upsert=True)
+
+
+class UpdateGalleryPipeline(MongoDBPipeline):
+    def open_spider(self, spider):
+        self.movie_col = self.db['eiga_movies']
+        self.update_col = self.db['updates']
+
+    def process_item(self, item, spider):
+
+        movie = self.movie_col.find_one({'eiga_movie_id': item['eiga_movie_id']})
+
+        if movie is None:
+            raise DropItem('movie (%s) not found in DB, skip updating gallery' % item['eiga_movie_id'])
+        else:
+            print 'movie exists, add gallery'
+            self.movie_col.update_one({'eiga_movie_id': item['eiga_movie_id']},
+                                        {
+                                            '$set': {
+                                                'gallery': item['gallery']
+                                            },
+                                            '$currentDate': {
+                                                'lastModified': True
+                                            }
+                                        })
+        return item
