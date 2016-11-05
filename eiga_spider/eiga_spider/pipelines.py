@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -8,64 +6,14 @@ import io
 import json
 import pymongo
 from scrapy.exceptions import DropItem
-from pprint import pprint
 
-class MongoPipeline(object):
-    collection_name = 'eiga_movies'
-
-    def __init__(self, mongo_uri, mongo_db):
-        self.mongo_uri = mongo_uri
-        self.mongo_db = mongo_db
-
-    @classmethod
-    def from_crawler(cls, crawler):
-        return cls(
-            mongo_uri=crawler.settings.get('MONGO_URI'),
-            mongo_db=crawler.settings.get('MONGO_DATABASE', 'movies')
-        )
-
-    def open_spider(self, spider):
-        self.client = pymongo.MongoClient(self.mongo_uri)
-        self.db = self.client[self.mongo_db]
-
-    def close_spider(self, spider):
-        self.client.close()
-
-    def process_item(self, item, spider):
-        movie_collection = self.db[self.collection_name]
-
-        movie = movie_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
-
-        if movie is None:
-            movie_collection.insert(dict(item))
-        else:
-            print('movie exists, add gallery')
-            print(item)
-            movie_collection.update_one({'eiga_movie_id': item['eiga_movie_id']},
-                                        {
-                                            '$set': {
-                                                'gallery': item['gallery']
-                                            },
-                                            '$currentDate': {
-                                                'lastModified': True
-                                            }
-                                        })
-        return item
-
-class UpdateOnSchedulePipeline(MongoPipeline):
-    def process_item(self, item, spider):
-        eiga_collection = self.db['eiga_movies']
-
-        movie = eiga_collection.find_one({'eiga_movie_id': item['eiga_movie_id']})
-
-        if movie is None:
-            print('add new movie in db: %s (%s)' % (item['title_jp'], item['eiga_movie_id']))
-            eiga_collection.insert_one(dict(item))
-        else:
-            print('scheduled movie %s (%s) already exists, skip' % (item['eiga_movie_id'], item['title_jp']))
-        return item
+import logging
 
 class MongoDBPipeline(object):
+    """
+    Base pipeline class, initialize mongodb client from the url and database
+    name found in settings file
+    """
     def __init__(self, client, db):
         self.client = client
         self.db = db
@@ -81,7 +29,30 @@ class MongoDBPipeline(object):
     def close_spider(self, spider):
         self.client.close()
 
+class MongoPipeline(MongoDBPipeline):
+    """
+    this pipeline simply insert a movie item into mongodb
+    """
+    def open_spider(self, spider):
+        self.movie_col = self.db['eiga_movies']
+
+    def process_item(self, item, spider):
+        movie = self.movie_col.find_one({'eiga_movie_id': item['eiga_movie_id']})
+        logging.info('process movie: [#%s](%s)' % (item['eiga_movie_id'], item['title_jp']))
+
+        if movie is None:
+            logging.info('item is new, insert new movie into database')
+            self.movie_col.insert(dict(item))
+        else:
+            logging.info('movie already exists, skip')
+        return item
+
 class MovieUpdatesPipeline(MongoDBPipeline):
+    """
+    should be used by movieUpdatesSpider, it compares scraped movies with movies
+    in mongodb, find the right status and create an update document in updates collection
+    which can be used in next step to scraped specific movies
+    """
     old_in_theater_movie_ids = set()
     old_out_theater_movie_ids = set()
     new_in_theater_movie_ids = set()
@@ -137,8 +108,6 @@ class MovieUpdatesPipeline(MongoDBPipeline):
             'updated': False
         }
 
-        print('calculated all updates:')
-        pprint(updates)
         return updates
 
     def insert_updates(self, updates):
@@ -167,6 +136,9 @@ class MovieUpdatesPipeline(MongoDBPipeline):
 
 
 class UpdateGalleryPipeline(MongoDBPipeline):
+    """
+    used by updateGallerySpider, set gallery file location of a movie
+    """
     def open_spider(self, spider):
         self.movie_col = self.db['eiga_movies']
         self.update_col = self.db['updates']

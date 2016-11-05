@@ -4,6 +4,7 @@ import urllib
 import pymongo
 from eiga_spider.items import MovieItem
 
+import logging
 
 class MovieSpider(scrapy.Spider):
     name = "get_movies"
@@ -11,7 +12,10 @@ class MovieSpider(scrapy.Spider):
 
     custom_settings = {
         'FEED_URI': 'updated_movies.json',
-        'ITEM_PIPELINES': {'scrapy.pipelines.images.ImagesPipeline': 1},
+        'ITEM_PIPELINES': {
+            'scrapy.pipelines.images.ImagesPipeline': 1,
+            'eiga_spider.pipelines.MongoPipeline': 300
+        },
         'IMAGES_STORE': './images/'
     }
 

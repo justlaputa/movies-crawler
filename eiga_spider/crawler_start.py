@@ -11,9 +11,10 @@ import os
 import sys
 from trakt_movie import TraktMovie
 from country_parser import CountryParser
-from movie_convert import MovieConverter
+from movie_convert import MovieConvert
 from movie_updates import MovieUpdates
 from movie_crawler import MovieCrawler
+from movie_trakt import MovieTrakt
 
 import boto3
 from boto3.s3.transfer import S3Transfer
@@ -33,6 +34,8 @@ class MovieCrawler():
 
         self.movie_updates = MovieUpdates(settings, db)
         self.movie_crawler = MovieCrawler(settings, db)
+        self.movie_trakt = MovieTrakt(self.movie_col)
+        self.movie_convert = MovieConvert()
 
     @classmethod
     def initialize(cls):
@@ -59,14 +62,14 @@ class MovieCrawler():
         self.movie_crawler.run(self.movie_updates.get_new_in_movie_ids(),
                                self.movie_updates.get_new_out_movie_ids())
         
-        self.run_get_gallery_spider(new_movie_ids)
+#        self.run_get_gallery_spider(new_movie_ids)
 
-#        self.get_external_movie_info(new_movie_ids)
+        self.update_external_info(new_movie_ids)
 
 #        self.download_movie_images(new_movie_ids)
 #        self.upload_images_s3(new_movie_ids)
 
-#        self.update_web_movies_col(updates)
+        self.update_web_movies(updates)
 
     def update_opened_movies_col(self, collection, opened_ids):
         found_movies = collection.find({'eiga_movie_id': {'$in': opened_ids}, 'in_theater': False},
@@ -99,43 +102,24 @@ class MovieCrawler():
         logging.info('updating newly closed movies in db: %s', closed_ids)
         collection.update_many({'eiga_movie_id': {'$in': closed_ids}}, {'$set': {'in_theater': False}})
 
-    def run_get_gallery_spider(self, movie_ids):
-        process = CrawlerProcess(self.settings)
-        process.crawl('update_eiga_gallery', movie_ids)
-        process.start()
-        process.stop()
-
-    def get_external_movie_info(self, movie_ids):
-        external = {}
+    def update_external_info(self, movie_ids):
         for eiga_id in movie_ids:
-            movie = self.movie_col.find_one({'eiga_movie_id': eiga_id})
+            eiga_movie = self.movie_col.find_one({'eiga_movie_id': eiga_id})
             if movie is None:
                 logging.warning('movie (%s) not found in db, skip', eiga_id)
                 continue
-            trakt_movie = self.get_trakt_movie(movie)
+            trakt_movie = self.movie_trakt.get_trakt_info(eiga_movie)
 
             if trakt_movie is None:
-                logging.info('Could not find Trakt movie')
-                return
+                logging.info(
+                    'Could not find Trakt info for movie (%s)' % eiga_movie['title_jp'])
+                continue
             logging.debug('got trakt info: %s', trakt_movie.to_json())
             self.movie_col.find_one_and_update({'_id': movie['_id']}, {
                 '$set': {
                     'external': {'trakt': trakt_movie.to_json()}
                 }
             }, upsert=True)
-
-    def get_trakt_movie(self, eiga_movie):
-        logging.debug('search trakt for movie %s', eiga_movie)
-        original_title = eiga_movie['movie_data'].get('原題'.decode('utf8'), None)
-        year = eiga_movie['movie_data'].get('製作年'.decode('utf8'), None)
-        logging.debug('search trakt for movie [%s](%s)', original_title, year)
-        if original_title is None:
-            logging.warning('original title does not exist, skip get trakt info')
-            return None
-        else:
-            if year is not None:
-                year = year[:4]
-            return TraktMovie.get_movie(original_title, year)
 
     def download_movie_images(self, movie_ids):
         for eiga_id in movie_ids:
@@ -289,17 +273,14 @@ class MovieCrawler():
                                      'japan-movies', 'fanarts/%s' % filename,
                                      extra_args={'ACL': 'public-read', 'ContentType': content_type})
 
-    def update_web_movie_col(self, updates):
+    def update_web_movies(self, updates):
         new_movie_ids = updates['new']['in_theater'] + updates['new']['out_theater']
         new_movies = self.movie_col.find({'eiga_movie_id': {'$in': new_movie_ids}})
         self._update_new_movie(new_movies)
 
     def _update_new_movie(self, new_movies):
-        movie_converter = MovieConverter()
         for movie in new_movies:
-            web_movie = movie_converter.get_web_movie(movie)
-            response = requests.post('http://127.0.0.1:3000/movies/', data=web_movie)
-
+            web_movie = self.movie_convert.get_web_movie(movie)
 
 def main(args):
     if len(args) > 1:

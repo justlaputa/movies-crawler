@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
 import logging
 
-class MovieConverter():
+class MovieConvert():
     logger = logging.getLevelName(__name__)
 
     def __init__(self):
