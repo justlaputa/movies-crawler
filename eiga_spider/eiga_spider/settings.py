@@ -91,6 +91,3 @@ AUTOTHROTTLE_ENABLED=True
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 LOG_LEVEL = 'DEBUG'
 #LOG_FILE = 'spider.log'
-
-FEED_URI="file:///Users/laputa/workspace/myproject/japan-movies/eiga_spider/new_movies.json"
-FEED_FORMAT="json"

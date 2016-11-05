@@ -7,13 +7,13 @@ from eiga_spider.items import MovieIdItem
 
 
 class UpdateMovieSpider(scrapy.Spider):
-    name = "check_new_movies"
+    name = "movie_updates"
     allowed_domains = ["eiga.com"]
     testing_page = 1000
 
     custom_settings = {
         'ITEM_PIPELINES': {
-            'eiga_spider.pipelines.NewMoviesPipeline': 300
+            'eiga_spider.pipelines.MovieUpdatesPipeline': 300
         }
     }
 

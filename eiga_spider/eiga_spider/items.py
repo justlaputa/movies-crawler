@@ -28,6 +28,8 @@ class MovieItem(scrapy.Item):
     staff = scrapy.Field()
     cast = scrapy.Field()
     movie_data = scrapy.Field()
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
 
 class MovieIdItem(scrapy.Item):
     id = scrapy.Field()

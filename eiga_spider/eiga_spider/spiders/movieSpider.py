@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import scrapy
 import json
 import urllib
@@ -6,17 +5,19 @@ import pymongo
 from eiga_spider.items import MovieItem
 
 
-class GetUpdateMovieSpider(scrapy.Spider):
+class MovieSpider(scrapy.Spider):
     name = "get_movies"
     allowed_domains = ["eiga.com"]
 
     custom_settings = {
-        'FEED_URI': 'updated_movies.json'
+        'FEED_URI': 'updated_movies.json',
+        'ITEM_PIPELINES': {'scrapy.pipelines.images.ImagesPipeline': 1},
+        'IMAGES_STORE': './images/'
     }
 
     def __init__(self, in_theater_ids, out_theater_ids):
-        self.in_theater_ids = in_theater_ids.split(',')
-        self.out_theater_ids = out_theater_ids.split(',')
+        self.in_theater_ids = in_theater_ids
+        self.out_theater_ids = out_theater_ids
 
     def start_requests(self):
         in_theater_requests = [scrapy.Request('http://eiga.com/movie/%s/' % id, self.parse_in_theater_movie)
@@ -47,6 +48,7 @@ class GetUpdateMovieSpider(scrapy.Spider):
         movie = response.meta['movie']
 
         movie['poster_url'] = poster_url
+        movie['image_urls'] = [poster_url]
 
         yield movie
 

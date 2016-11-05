@@ -12,6 +12,8 @@ import sys
 from trakt_movie import TraktMovie
 from country_parser import CountryParser
 from movie_convert import MovieConverter
+from movie_updates import MovieUpdates
+from movie_crawler import MovieCrawler
 
 import boto3
 from boto3.s3.transfer import S3Transfer
@@ -29,6 +31,9 @@ class MovieCrawler():
         client = boto3.client('s3', 'ap-northeast-1')
         self.s3_transfer = S3Transfer(client)
 
+        self.movie_updates = MovieUpdates(settings, db)
+        self.movie_crawler = MovieCrawler(settings, db)
+
     @classmethod
     def initialize(cls):
         scrapy_settings = get_project_settings()
@@ -42,32 +47,26 @@ class MovieCrawler():
         return cls(settings=scrapy_settings, db=db, webdb=webdb)
 
     def start(self):
-        self.run_update_movie_spider()
+        self.movie_updates.update()
 
-        updates = self.get_latest_updates()
-        new_movie_ids = updates['new']['in_theater'] + updates['new']['out_theater']
+        new_movie_ids = self.movie_updates.get_new_movie_ids()
 
-        self.update_opened_movies_col(self.movie_col, updates['opened'])
-        self.update_closed_movies_col(self.movie_col, updates['closed'])
-        self.run_get_movie_spider(updates['new']['in_theater'], updates['new']['out_theater'])
+        self.update_opened_movies_col(self.movie_col,
+                                      self.movie_updates.get_opened_movie_ids())
+        self.update_closed_movies_col(self.movie_col,
+                                      self.movie_updates.get_closed_movie_ids())
+
+        self.movie_crawler.run(self.movie_updates.get_new_in_movie_ids(),
+                               self.movie_updates.get_new_out_movie_ids())
+        
         self.run_get_gallery_spider(new_movie_ids)
-        self.get_external_movie_info(new_movie_ids)
-        self.download_movie_images(new_movie_ids)
-        self.upload_images_s3(new_movie_ids)
-        self.update_web_movies_col(updates)
 
-    def run_update_movie_spider(self):
-        process = CrawlerProcess(self.settings)
-        process.crawl('check_new_movies')
-        process.start()
-        process.stop()
+#        self.get_external_movie_info(new_movie_ids)
 
-    def get_latest_updates(self):
-        result = self.update_col.find_one({'updated': False}, sort=[('createdAt', -1)])
-        if result is None:
-            raise Exception('No updates found from db')
+#        self.download_movie_images(new_movie_ids)
+#        self.upload_images_s3(new_movie_ids)
 
-        return result
+#        self.update_web_movies_col(updates)
 
     def update_opened_movies_col(self, collection, opened_ids):
         found_movies = collection.find({'eiga_movie_id': {'$in': opened_ids}, 'in_theater': False},
@@ -99,12 +98,6 @@ class MovieCrawler():
 
         logging.info('updating newly closed movies in db: %s', closed_ids)
         collection.update_many({'eiga_movie_id': {'$in': closed_ids}}, {'$set': {'in_theater': False}})
-
-    def run_get_movie_spider(self, in_theater_ids, out_theater_ids):
-        process = CrawlerProcess(self.settings)
-        process.crawl('get_update_movies', in_theater_ids, out_theater_ids)
-        process.start()
-        process.stop()
 
     def run_get_gallery_spider(self, movie_ids):
         process = CrawlerProcess(self.settings)

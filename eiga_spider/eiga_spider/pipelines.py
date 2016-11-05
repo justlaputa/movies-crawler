@@ -39,7 +39,7 @@ class MongoPipeline(object):
         if movie is None:
             movie_collection.insert(dict(item))
         else:
-            print 'movie exists, add gallery'
+            print('movie exists, add gallery')
             print(item)
             movie_collection.update_one({'eiga_movie_id': item['eiga_movie_id']},
                                         {
@@ -81,7 +81,7 @@ class MongoDBPipeline(object):
     def close_spider(self, spider):
         self.client.close()
 
-class NewMoviesPipeline(MongoDBPipeline):
+class MovieUpdatesPipeline(MongoDBPipeline):
     old_in_theater_movie_ids = set()
     old_out_theater_movie_ids = set()
     new_in_theater_movie_ids = set()
@@ -178,7 +178,7 @@ class UpdateGalleryPipeline(MongoDBPipeline):
         if movie is None:
             raise DropItem('movie (%s) not found in DB, skip updating gallery' % item['eiga_movie_id'])
         else:
-            print 'movie exists, add gallery'
+            print('movie exists, add gallery')
             self.movie_col.update_one({'eiga_movie_id': item['eiga_movie_id']},
                                         {
                                             '$set': {
