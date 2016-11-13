@@ -17,7 +17,7 @@ class MovieUpdates():
 
     def update(self):
         """run scrapy crawler to get movie updates"""
-        
+
         process = CrawlerProcess(self.scrapy_settings)
         process.crawl('movie_updates')
         process.start()
@@ -39,7 +39,7 @@ class MovieUpdates():
 
     def get_closed_movie_ids(self):
         return self.updates['closed']
-    
+
     def get_new_in_movie_ids(self):
         return self.updates['new']['in_theater']
 

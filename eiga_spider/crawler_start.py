@@ -61,7 +61,6 @@ class MovieCrawler():
 
         self.movie_crawler.run(self.movie_updates.get_new_in_movie_ids(),
                                self.movie_updates.get_new_out_movie_ids())
-        
 #        self.run_get_gallery_spider(new_movie_ids)
 
         self.update_external_info(new_movie_ids)
